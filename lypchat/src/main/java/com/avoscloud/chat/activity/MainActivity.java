@@ -129,6 +129,9 @@ public class MainActivity extends AVBaseActivity {
     contactTips = findViewById(R.id.iv_contact_tips);
   }
 
+  /*
+   *管理tab的切换
+   */
   public void onTabSelect(View v) {
     int id = v.getId();
     FragmentManager manager = getSupportFragmentManager();
