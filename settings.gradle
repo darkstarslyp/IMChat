@@ -3,5 +3,5 @@
 //include ':avoscloud-push'
 //project(':avoscloud-push').projectDir = new File('/Users/lzw/clojure/AndroidSDK/avoscloud-push')
 
-include  ':leanchat',':leanchatlib'
+include  ':lypchat',':lypchatlib'
 
