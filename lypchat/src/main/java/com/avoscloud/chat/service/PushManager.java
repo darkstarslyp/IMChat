@@ -8,7 +8,7 @@ import com.avos.avoscloud.AVPush;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.PushService;
 import com.avoscloud.chat.activity.EntrySplashActivity;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,14 +38,14 @@ public class PushManager {
   }
 
   private void subscribeCurrentUserChannel() {
-    String currentUserId = LeanchatUser.getCurrentUserId();
+    String currentUserId = IMUser.getCurrentUserId();
     if (!TextUtils.isEmpty(currentUserId)) {
       PushService.subscribe(context, currentUserId, EntrySplashActivity.class);
     }
   }
 
   public void unsubscribeCurrentUserChannel() {
-    String currentUserId = LeanchatUser.getCurrentUserId();
+    String currentUserId = IMUser.getCurrentUserId();
     if (!TextUtils.isEmpty(currentUserId)) {
       PushService.unsubscribe(context, currentUserId);
     }

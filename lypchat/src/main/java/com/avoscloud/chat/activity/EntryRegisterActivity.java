@@ -11,7 +11,7 @@ import com.avos.avoscloud.SignUpCallback;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.App;
 import com.avoscloud.chat.util.Utils;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 
 public class EntryRegisterActivity extends AVBaseActivity {
@@ -60,7 +60,7 @@ public class EntryRegisterActivity extends AVBaseActivity {
       return;
     }
 
-    LeanchatUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
+    IMUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
       @Override
       public void done(AVException e) {
         if (e != null) {

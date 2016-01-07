@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.friends.ContactPersonInfoActivity;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
@@ -19,11 +19,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * Created by wli on 15/12/3.
  */
-public class SearchUserItemHolder extends CommonViewHolder<LeanchatUser> {
+public class SearchUserItemHolder extends CommonViewHolder<IMUser> {
 
   private TextView nameView;
   private ImageView avatarView;
-  private LeanchatUser leanchatUser;
+  private IMUser IMUser;
 
   public SearchUserItemHolder(Context context, ViewGroup root) {
     super(context, root, R.layout.search_user_item_layout);
@@ -35,17 +35,17 @@ public class SearchUserItemHolder extends CommonViewHolder<LeanchatUser> {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getContext(), ContactPersonInfoActivity.class);
-        intent.putExtra(Constants.LEANCHAT_USER_ID, leanchatUser.getObjectId());
+        intent.putExtra(Constants.LEANCHAT_USER_ID, IMUser.getObjectId());
         getContext().startActivity(intent);
       }
     });
   }
 
   @Override
-  public void bindData(final LeanchatUser leanchatUser) {
-    this.leanchatUser = leanchatUser;
-    ImageLoader.getInstance().displayImage(leanchatUser.getAvatarUrl(), avatarView, PhotoUtils.avatarImageOptions);
-    nameView.setText(leanchatUser.getUsername());
+  public void bindData(final IMUser IMUser) {
+    this.IMUser = IMUser;
+    ImageLoader.getInstance().displayImage(IMUser.getAvatarUrl(), avatarView, PhotoUtils.avatarImageOptions);
+    nameView.setText(IMUser.getUsername());
   }
 
   public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<SearchUserItemHolder>() {

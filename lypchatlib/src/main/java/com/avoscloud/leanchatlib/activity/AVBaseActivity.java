@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by wli on 15/7/24.
+ * Created by lyp on 16/1/5.
  */
 public class AVBaseActivity extends AppCompatActivity {
 

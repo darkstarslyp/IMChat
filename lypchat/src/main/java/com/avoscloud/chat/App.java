@@ -15,7 +15,7 @@ import com.avoscloud.chat.util.LeanchatUserProvider;
 import com.avoscloud.leanchatlib.controller.ConversationEventHandler;
 import com.avoscloud.chat.util.Utils;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.ThirdPartUserUtils;
 import com.baidu.mapapi.SDKInitializer;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,10 +42,12 @@ public class App extends Application {
 //    String testAppId = "xcalhck83o10dntwh8ft3z5kvv0xc25p6t3jqbe5zlkkdsib";
 //    String testAppKey = "m9fzwse7od89gvcnk1dmdq4huprjvghjtiug1u2zu073zn99";
 
-    String appId = "x3o016bxnkpyee7e9pa5pre6efx2dadyerdlcez0wbzhw25g";
-    String appKey = "057x24cfdzhffnl3dzk14jh9xo2rq6w1hy1fdzt5tv46ym78";
+//    String appId = "x3o016bxnkpyee7e9pa5pre6efx2dadyerdlcez0wbzhw25g";
+//    String appKey = "057x24cfdzhffnl3dzk14jh9xo2rq6w1hy1fdzt5tv46ym78";
+      String  appId = "mdC8b6ebr4tlqgRlzq5UIDLr-gzGzoHsz";
+      String appKey = "pMD3U9gRJdyxi72tLKiKXjPs";
 
-    LeanchatUser.alwaysUseSubUserClass(LeanchatUser.class);
+    IMUser.alwaysUseSubUserClass(IMUser.class);
     AVOSCloud.initialize(this, appId, appKey);
     //AVOSCloud.initialize(this, publicId,publicKey);
     //AVOSCloud.initialize(this, testAppId, testAppKey);
@@ -71,7 +73,7 @@ public class App extends Application {
   private void initChatManager() {
     final ChatManager chatManager = ChatManager.getInstance();
     chatManager.init(this);
-    String currentUserId = LeanchatUser.getCurrentUserId();
+    String currentUserId = IMUser.getCurrentUserId();
     if (!TextUtils.isEmpty(currentUserId)) {
       chatManager.setupManagerWithUserId(this, currentUserId);
     }

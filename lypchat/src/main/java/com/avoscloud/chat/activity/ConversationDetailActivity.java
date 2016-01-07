@@ -29,7 +29,7 @@ import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.controller.ConversationHelper;
 import com.avoscloud.leanchatlib.controller.RoomsTable;
 import com.avoscloud.leanchatlib.model.ConversationType;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.chat.util.UserCacheUtils;
 import com.avoscloud.chat.util.UserCacheUtils.CacheUserCallback;
 import com.avoscloud.leanchatlib.utils.Constants;
@@ -38,7 +38,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by lzw on 14-10-11.
@@ -51,7 +50,7 @@ public class ConversationDetailActivity extends AVBaseActivity {
   RecyclerView recyclerView;
 
   GridLayoutManager layoutManager;
-  HeaderListAdapter<LeanchatUser> listAdapter;
+  HeaderListAdapter<IMUser> listAdapter;
 
   View nameLayout;
   View quitLayout;
@@ -138,7 +137,7 @@ public class ConversationDetailActivity extends AVBaseActivity {
   private void refresh() {
     UserCacheUtils.fetchUsers(conversation.getMembers(), new CacheUserCallback() {
       @Override
-      public void done(List<LeanchatUser> userList, Exception e) {
+      public void done(List<IMUser> userList, Exception e) {
         listAdapter.setDataList(userList);
         listAdapter.notifyDataSetChanged();
       }
@@ -147,7 +146,7 @@ public class ConversationDetailActivity extends AVBaseActivity {
 
   private void initData() {
     conversationManager = ConversationManager.getInstance();
-    isOwner = conversation.getCreator().equals(LeanchatUser.getCurrentUserId());
+    isOwner = conversation.getCreator().equals(IMUser.getCurrentUserId());
     conversationType = ConversationHelper.typeOfConversation(conversation);
   }
 

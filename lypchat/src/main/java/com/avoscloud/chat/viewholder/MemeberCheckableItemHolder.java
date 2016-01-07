@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avoscloud.chat.R;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -17,7 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * Created by wli on 15/12/2.
  */
-public class MemeberCheckableItemHolder extends CommonViewHolder<LeanchatUser> {
+public class MemeberCheckableItemHolder extends CommonViewHolder<IMUser> {
 
   ImageView avatarView;
   TextView nameView;
@@ -50,7 +50,7 @@ public class MemeberCheckableItemHolder extends CommonViewHolder<LeanchatUser> {
   }
 
   @Override
-  public void bindData(LeanchatUser user) {
+  public void bindData(IMUser user) {
     if (null != user) {
       ImageLoader.getInstance().displayImage(user.getAvatarUrl(), avatarView, PhotoUtils.avatarImageOptions);
       nameView.setText(user.getUsername());

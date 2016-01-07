@@ -3,7 +3,7 @@ package com.avoscloud.chat.friends;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.chat.util.UserCacheUtils;
 
 import java.util.ArrayList;
@@ -29,22 +29,22 @@ public class FriendsManager {
     }
   }
 
-  public static void fetchFriends(boolean isForce, final FindCallback<LeanchatUser> findCallback) {
+  public static void fetchFriends(boolean isForce, final FindCallback<IMUser> findCallback) {
     AVQuery.CachePolicy policy =
       (isForce ? AVQuery.CachePolicy.NETWORK_ELSE_CACHE : AVQuery.CachePolicy.CACHE_ELSE_NETWORK);
-    LeanchatUser.getCurrentUser().findFriendsWithCachePolicy(policy, new FindCallback<LeanchatUser>() {
+    IMUser.getCurrentUser().findFriendsWithCachePolicy(policy, new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         if (null != e) {
           findCallback.done(null, e);
         } else {
           final List<String> userIds = new ArrayList<String>();
-          for (LeanchatUser user : list) {
+          for (IMUser user : list) {
             userIds.add(user.getObjectId());
           }
           UserCacheUtils.fetchUsers(userIds, new UserCacheUtils.CacheUserCallback() {
             @Override
-            public void done(List<LeanchatUser> list1, Exception e) {
+            public void done(List<IMUser> list1, Exception e) {
               setFriendIds(userIds);
               findCallback.done(list1, null);
             }

@@ -5,17 +5,20 @@
     <CheckBoxPreference
         android:defaultValue="@bool/defaultNotifyWhenNews"
         android:key="notifyWhenNews"
+        android:textColor="@color/black"
         android:title="@string/profile_notifyWhenNews" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/defaultVoiceNotify"
         android:dependency="notifyWhenNews"
         android:key="voiceNotify"
+        android:textColor="@color/black"
         android:title="@string/setting_preference_voice" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/defaultVibrateNotify"
         android:dependency="notifyWhenNews"
         android:key="vibrateNotify"
+        android:textColor="@color/black"
         android:title="@string/profile_vibrate" />
 </PreferenceScreen>

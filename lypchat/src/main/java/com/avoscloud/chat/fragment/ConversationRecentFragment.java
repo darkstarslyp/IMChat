@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,10 @@ import com.avoscloud.leanchatlib.utils.ConversationManager;
 import com.avoscloud.leanchatlib.event.ConversationItemClickEvent;
 import com.avoscloud.chat.activity.ChatRoomActivity;
 import com.avoscloud.chat.adapter.ConversationListAdapter;
-import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.controller.ConversationHelper;
 import com.avoscloud.leanchatlib.event.ImTypeMessageEvent;
 import com.avoscloud.leanchatlib.model.ConversationType;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.model.Room;
 import com.avoscloud.chat.util.UserCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
@@ -75,7 +75,10 @@ public class ConversationRecentFragment extends BaseFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    headerLayout.showTitle(R.string.conversation_messages);
+    if(toolbar==null){
+      toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+    }
+    toolbar.setTitle(R.string.conversation_messages);
     updateConversationList();
   }
 
@@ -157,7 +160,7 @@ public class ConversationRecentFragment extends BaseFragment {
     }
     UserCacheUtils.fetchUsers(needCacheUsers, new UserCacheUtils.CacheUserCallback() {
       @Override
-      public void done(List<LeanchatUser> userList, Exception e) {
+      public void done(List<IMUser> userList, Exception e) {
         itemAdapter.notifyDataSetChanged();
       }
     });

@@ -7,7 +7,7 @@ import com.avos.avoscloud.AVGeoPoint;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.App;
 import com.avoscloud.leanchatlib.utils.LogUtils;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 
 /**
@@ -44,13 +44,13 @@ public class PreferenceMap {
 
   public static PreferenceMap getCurUserPrefDao(Context ctx) {
     if (currentUserPreferenceMap == null) {
-      currentUserPreferenceMap = new PreferenceMap(ctx.getApplicationContext(), LeanchatUser.getCurrentUserId());
+      currentUserPreferenceMap = new PreferenceMap(ctx.getApplicationContext(), IMUser.getCurrentUserId());
     }
     return currentUserPreferenceMap;
   }
 
   public static PreferenceMap getMyPrefDao(Context ctx) {
-    LeanchatUser user = LeanchatUser.getCurrentUser();
+    IMUser user = IMUser.getCurrentUser();
     if (user == null) {
       return new PreferenceMap(ctx, "default_pref");
     }

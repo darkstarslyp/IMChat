@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.avoscloud.chat.viewholder.ContactItemHolder;
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
@@ -41,10 +41,10 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
    * 设置成员列表，然后更新索引
    * 此处会对数据以 空格、数字、字母（汉字转化为拼音后的字母） 的顺序进行重新排列
    */
-  public void setUserList(List<LeanchatUser> list) {
+  public void setUserList(List<IMUser> list) {
     List<ContactItem> contactList = new ArrayList<>();
     if (null != list) {
-      for (LeanchatUser user : list) {
+      for (IMUser user : list) {
         ContactItem item = new ContactItem();
         item.user = user;
         item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE);
@@ -119,7 +119,7 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
   }
 
   public static class ContactItem {
-    public LeanchatUser user;
+    public IMUser user;
     public String sortContent;
     public boolean initialVisible;
   }

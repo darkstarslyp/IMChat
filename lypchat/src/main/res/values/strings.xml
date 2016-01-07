@@ -4,7 +4,7 @@
     <string name="invitation_action">com.avoscloud.chat.INVITATION_ACTION</string>
 
 
-    <string name="app_name">LeanChat</string>
+    <string name="app_name">IM+</string>
 
 
     <string name="update_service_versionIsAlreadyNew">已经是最新版本了</string>
@@ -97,5 +97,36 @@
     <string name="chat_xlistview_footer_hint_ready">松开载入更多</string>
     <string name="push_add_request">您有新的好友申请</string>
     <string name="message_when_agree_request">我们已经是好友了，来聊天吧</string>
+    <string name="title_activity_my_space">个人中心</string>
+    <string name="title_activity_my_setting">个人设置</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
+    <!--个人设置模块-->
+    <string name="my_setting_lable_avatar">头像</string>
+    <string name="my_setting_lable_nickname">昵称</string>
+    <string name="my_setting_lable_im_mark">IM+号</string>
+    <string name="my_setting_lable_card">二维码名片</string>
+    <string name="my_setting_lable_sex">性别</string>
+    <string name="my_setting_lable_area">地区</string>
+    <string name="my_setting_lable_signature">个性签名</string>
+    <string name="signature_setting">签名设置</string>
+    <!--性别标识-->
+    <string name="sex_male">男</string>
+    <string name="sex_female">女</string>
+    <string name="sex">性别</string>
+
+    <string name="zh_cn">中国</string>
+    <string name="tip1">好好学习，天天向上</string>
+    <string name="title_activity_signature_acivity">SignatureAcivity</string>
+
+
+    <!--全局设置-->
+    <string name="save">保存</string>
+    <string name="toast_success">保存成功</string>
+    <string name="title_activity_blank">BlankActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_set_name">SetNameActivity</string>
 </resources>

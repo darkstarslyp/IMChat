@@ -1,14 +1,13 @@
 package com.avoscloud.chat.friends;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.activity.ChatRoomActivity;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
@@ -29,7 +28,7 @@ public class ContactPersonInfoActivity extends AVBaseActivity implements OnClick
   RelativeLayout avatarLayout, genderLayout;
 
   String userId = "";
-  LeanchatUser user;
+  IMUser user;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class ContactPersonInfoActivity extends AVBaseActivity implements OnClick
   }
 
   private void initView() {
-    LeanchatUser curUser = LeanchatUser.getCurrentUser();
+    IMUser curUser = IMUser.getCurrentUser();
     if (curUser.equals(user)) {
       setTitle(R.string.contact_personalInfo);
       avatarLayout.setOnClickListener(this);
@@ -86,7 +85,7 @@ public class ContactPersonInfoActivity extends AVBaseActivity implements OnClick
     updateView(user);
   }
 
-  private void updateView(LeanchatUser user) {
+  private void updateView(IMUser user) {
     ImageLoader.getInstance().displayImage(user.getAvatarUrl(), avatarView, PhotoUtils.avatarImageOptions);
     usernameView.setText(user.getUsername());
   }

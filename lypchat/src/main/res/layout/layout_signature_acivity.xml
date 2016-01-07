@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.avoscloud.chat.myspace.SignatureAcivity">
+    <include layout="@layout/toolbar_base_layout"/>
+    <EditText
+        android:id="@+id/edit_signature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        />
+
+     <Button
+         android:id="@+id/btn_save"
+         android:text="@string/save"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:background="@color/material_deep_teal_500"
+         />
+</LinearLayout>

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import com.avoscloud.chat.R;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 
 public class EntrySplashActivity extends AVBaseActivity {
@@ -35,8 +35,8 @@ public class EntrySplashActivity extends AVBaseActivity {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
     setContentView(R.layout.entry_splash_layout);
-    if (LeanchatUser.getCurrentUser() != null) {
-      LeanchatUser.getCurrentUser().updateUserInfo();
+    if (IMUser.getCurrentUser() != null) {
+      IMUser.getCurrentUser().updateUserInfo();
       handler.sendEmptyMessageDelayed(GO_MAIN_MSG, SPLASH_DURATION);
     } else {
       handler.sendEmptyMessageDelayed(GO_LOGIN_MSG, SPLASH_DURATION);

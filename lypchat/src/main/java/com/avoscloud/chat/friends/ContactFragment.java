@@ -19,7 +19,6 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
-import com.avoscloud.chat.App;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.activity.ChatRoomActivity;
 import com.avoscloud.chat.fragment.BaseFragment;
@@ -30,7 +29,7 @@ import com.avoscloud.chat.event.ContactItemLongClickEvent;
 import com.avoscloud.chat.event.ContactRefreshEvent;
 import com.avoscloud.chat.event.InvitationEvent;
 import com.avoscloud.leanchatlib.event.MemberLetterEvent;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 
 import java.util.List;
@@ -131,9 +130,9 @@ public class ContactFragment extends BaseFragment {
   }
 
   private void getMembers(final boolean isforce) {
-    FriendsManager.fetchFriends(isforce, new FindCallback<LeanchatUser>() {
+    FriendsManager.fetchFriends(isforce, new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         refreshLayout.setRefreshing(false);
         itemAdapter.setUserList(list);
         itemAdapter.notifyDataSetChanged();
@@ -142,14 +141,14 @@ public class ContactFragment extends BaseFragment {
   }
 
   private void initHeader() {
-    headerLayout.showTitle(App.ctx.getString(R.string.contact));
-    headerLayout.showRightImageButton(R.drawable.base_action_bar_add_bg_selector, new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(ctx, ContactAddFriendActivity.class);
-        ctx.startActivity(intent);
-      }
-    });
+//    headerLayout.showTitle(App.ctx.getString(R.string.contact));
+//    headerLayout.showRightImageButton(R.drawable.base_action_bar_add_bg_selector, new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        Intent intent = new Intent(ctx, ContactAddFriendActivity.class);
+//        ctx.startActivity(intent);
+//      }
+//    });
   }
 
   private void updateNewRequestBadge() {
@@ -171,7 +170,7 @@ public class ContactFragment extends BaseFragment {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             final ProgressDialog dialog1 = showSpinnerDialog();
-            LeanchatUser.getCurrentUser().removeFriend(memberId, new SaveCallback() {
+            IMUser.getCurrentUser().removeFriend(memberId, new SaveCallback() {
               @Override
               public void done(AVException e) {
                 dialog1.dismiss();

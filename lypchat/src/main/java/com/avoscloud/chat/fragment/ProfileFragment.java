@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,14 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.activity.ProfileNotifySettingActivity;
+import com.avoscloud.chat.myspace.MySpaceActivity;
 import com.avoscloud.chat.service.PushManager;
 import com.avoscloud.chat.service.UpdateService;
 import com.avoscloud.chat.activity.EntryLoginActivity;
 import com.avoscloud.chat.util.PathUtils;
+import com.avoscloud.chat.util.StringUtils;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -56,7 +59,11 @@ public class ProfileFragment extends BaseFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    headerLayout.showTitle(R.string.profile_title);
+
+    if(toolbar==null){
+      toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+    }
+    toolbar.setTitle(R.string.title_activity_my_space);
     chatManager = ChatManager.getInstance();
   }
 
@@ -67,9 +74,12 @@ public class ProfileFragment extends BaseFragment {
   }
 
   private void refresh() {
-    LeanchatUser curUser = LeanchatUser.getCurrentUser();
+    IMUser curUser = IMUser.getCurrentUser();
     userNameView.setText(curUser.getUsername());
-    ImageLoader.getInstance().displayImage(curUser.getAvatarUrl(), avatarView, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
+    String avatarUrl = curUser.getAvatarUrl();
+    if(StringUtils.isNotNullOrEmpty(avatarUrl)){
+      ImageLoader.getInstance().displayImage(curUser.getAvatarUrl(), avatarView, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
+    }
   }
 
   @OnClick(R.id.profile_checkupdate_view)
@@ -92,17 +102,21 @@ public class ProfileFragment extends BaseFragment {
       }
     });
     PushManager.getInstance().unsubscribeCurrentUserChannel();
-    LeanchatUser.logOut();
+    IMUser.logOut();
     getActivity().finish();
     Intent intent = new Intent(ctx, EntryLoginActivity.class);
     ctx.startActivity(intent);
   }
 
+  /*
+   *进入当前用户管理界面
+   */
   @OnClick(R.id.profile_avatar_layout)
   public void onAvatarClick() {
-    Intent intent = new Intent(Intent.ACTION_PICK, null);
-    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-    startActivityForResult(intent, IMAGE_PICK_REQUEST);
+//    Intent intent = new Intent(Intent.ACTION_PICK, null);
+//    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//    startActivityForResult(intent, IMAGE_PICK_REQUEST);
+    MySpaceActivity.goMySpaceActivity(this.getActivity());
   }
 
   @Override
@@ -114,7 +128,7 @@ public class ProfileFragment extends BaseFragment {
         startImageCrop(uri, 200, 200, CROP_REQUEST);
       } else if (requestCode == CROP_REQUEST) {
         final String path = saveCropAvatar(data);
-        LeanchatUser user = LeanchatUser.getCurrentUser();
+        IMUser user = IMUser.getCurrentUser();
         user.saveAvatar(path, null);
       }
     }

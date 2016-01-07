@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ import java.util.Set;
  */
 public class UserCacheUtils {
 
-  private static Map<String, LeanchatUser> userMap;
+  private static Map<String, IMUser> userMap;
 
   static {
-    userMap = new HashMap<String, LeanchatUser>();
+    userMap = new HashMap<String, IMUser>();
   }
 
-  public static LeanchatUser getCachedUser(String objectId) {
+  public static IMUser getCachedUser(String objectId) {
     return userMap.get(objectId);
   }
 
@@ -37,15 +37,15 @@ public class UserCacheUtils {
     return userMap.containsKey(objectId);
   }
 
-  public static void cacheUser(LeanchatUser user) {
+  public static void cacheUser(IMUser user) {
     if (null != user && !TextUtils.isEmpty(user.getObjectId())) {
       userMap.put(user.getObjectId(), user);
     }
   }
 
-  public static void cacheUsers(List<LeanchatUser> users) {
+  public static void cacheUsers(List<IMUser> users) {
     if (null != users) {
-      for (LeanchatUser user : users) {
+      for (IMUser user : users) {
         cacheUser(user);
       }
     }
@@ -70,15 +70,15 @@ public class UserCacheUtils {
       }
     }
 
-    AVQuery<LeanchatUser> q = LeanchatUser.getQuery(LeanchatUser.class);
+    AVQuery<IMUser> q = IMUser.getQuery(IMUser.class);
     q.whereContainedIn(Constants.OBJECT_ID, uncachedIds);
     q.setLimit(1000);
     q.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
-    q.findInBackground(new FindCallback<LeanchatUser>() {
+    q.findInBackground(new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         if (null == e) {
-          for (LeanchatUser user : list) {
+          for (IMUser user : list) {
             userMap.put(user.getObjectId(), user);
           }
         }
@@ -89,8 +89,8 @@ public class UserCacheUtils {
     });
   }
 
-  public static List<LeanchatUser> getUsersFromCache(List<String> ids) {
-    List<LeanchatUser> userList = new ArrayList<LeanchatUser>();
+  public static List<IMUser> getUsersFromCache(List<String> ids) {
+    List<IMUser> userList = new ArrayList<IMUser>();
     for (String id : ids) {
       if (userMap.containsKey(id)) {
         userList.add(userMap.get(id));
@@ -100,6 +100,6 @@ public class UserCacheUtils {
   }
 
   public static abstract class CacheUserCallback {
-    public abstract void done(List<LeanchatUser> userList, Exception e);
+    public abstract void done(List<IMUser> userList, Exception e);
   }
 }

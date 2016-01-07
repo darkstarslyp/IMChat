@@ -6,8 +6,6 @@
     android:background="#f2f2f2"
     android:orientation="vertical">
 
-    <include layout="@layout/common_header_layout" />
-
     <include layout="@layout/chat_client_state_view" />
 
     <android.support.v4.widget.SwipeRefreshLayout

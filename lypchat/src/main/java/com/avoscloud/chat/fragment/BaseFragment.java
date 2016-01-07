@@ -4,19 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.view.HeaderLayout;
 
 public class BaseFragment extends Fragment {
-  protected HeaderLayout headerLayout;
+  protected Toolbar toolbar;
   protected Context ctx;
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     ctx = getActivity();
-    headerLayout = (HeaderLayout) getView().findViewById(R.id.headerLayout);
+    //headerLayout = (HeaderLayout) getView().findViewById(R.id.headerLayout);
+    toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
   }
 
   protected void toast(String str) {

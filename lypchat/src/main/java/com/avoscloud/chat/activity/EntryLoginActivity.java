@@ -10,7 +10,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.LogInCallback;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.util.Utils;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 
 import butterknife.Bind;
@@ -58,14 +58,14 @@ public class EntryLoginActivity extends AVBaseActivity {
     }
 
     final ProgressDialog dialog = showSpinnerDialog();
-    LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
+    IMUser.logInInBackground(name, password, new LogInCallback<IMUser>() {
       @Override
-      public void done(LeanchatUser avUser, AVException e) {
+      public void done(IMUser avUser, AVException e) {
         dialog.dismiss();
         if (filterException(e)) {
           MainActivity.goMainActivityFromActivity(EntryLoginActivity.this);
         }
       }
-    }, LeanchatUser.class);
+    }, IMUser.class);
   }
 }

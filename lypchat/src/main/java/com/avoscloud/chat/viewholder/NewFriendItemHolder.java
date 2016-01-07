@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.event.NewFriendItemClickEvent;
 import com.avoscloud.chat.friends.AddRequest;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.PhotoUtils;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,7 +56,7 @@ public class NewFriendItemHolder extends CommonViewHolder<AddRequest> {
   @Override
   public void bindData(final AddRequest addRequest) {
     this.addRequest = addRequest;
-    LeanchatUser from = addRequest.getFromUser();
+    IMUser from = addRequest.getFromUser();
     ImageLoader.getInstance().displayImage(from.getAvatarUrl(), avatarView, PhotoUtils.avatarImageOptions);
     if (from != null) {
       nameView.setText(from.getUsername());

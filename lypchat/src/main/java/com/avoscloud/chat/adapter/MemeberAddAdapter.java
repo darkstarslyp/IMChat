@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 import com.avoscloud.chat.viewholder.MemeberCheckableItemHolder;
 import com.avoscloud.leanchatlib.adapter.CommonListAdapter;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * Created by wli on 15/12/2.
  */
-public class MemeberAddAdapter extends CommonListAdapter<LeanchatUser> {
+public class MemeberAddAdapter extends CommonListAdapter<IMUser> {
   private Map<Integer, Boolean> checkStatusMap = new HashMap<>();
 
   public MemeberAddAdapter() {

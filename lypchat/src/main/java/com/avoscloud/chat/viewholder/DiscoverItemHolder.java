@@ -13,7 +13,7 @@ import com.avoscloud.chat.R;
 import com.avoscloud.chat.friends.ContactPersonInfoActivity;
 import com.avoscloud.chat.service.PreferenceMap;
 import com.avoscloud.chat.util.Utils;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,7 +25,7 @@ import java.util.Date;
 /**
  * Created by wli on 15/11/24.
  */
-public class DiscoverItemHolder extends CommonViewHolder<LeanchatUser> {
+public class DiscoverItemHolder extends CommonViewHolder<IMUser> {
 
   private static final double EARTH_RADIUS = 6378137;
   PrettyTime prettyTime;
@@ -35,7 +35,7 @@ public class DiscoverItemHolder extends CommonViewHolder<LeanchatUser> {
   TextView distanceView;
   TextView loginTimeView;
   ImageView avatarView;
-  LeanchatUser leanchatUser;
+  IMUser IMUser;
 
   public DiscoverItemHolder(Context context, ViewGroup root) {
     super(context, root, R.layout.discover_near_people_item);
@@ -56,9 +56,9 @@ public class DiscoverItemHolder extends CommonViewHolder<LeanchatUser> {
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (null != leanchatUser) {
+        if (null != IMUser) {
           Intent intent = new Intent(getContext(), ContactPersonInfoActivity.class);
-          intent.putExtra(Constants.LEANCHAT_USER_ID, leanchatUser.getObjectId());
+          intent.putExtra(Constants.LEANCHAT_USER_ID, IMUser.getObjectId());
           getContext().startActivity(intent);
         }
       }
@@ -66,17 +66,17 @@ public class DiscoverItemHolder extends CommonViewHolder<LeanchatUser> {
   }
 
   @Override
-  public void bindData(LeanchatUser user) {
-    leanchatUser = user;
+  public void bindData(IMUser user) {
+    IMUser = user;
     if (null != user) {
       ImageLoader.getInstance().displayImage(user.getAvatarUrl(), avatarView, com.avoscloud.leanchatlib.utils.PhotoUtils.avatarImageOptions);
-      AVGeoPoint geoPoint = user.getAVGeoPoint(LeanchatUser.LOCATION);
+      AVGeoPoint geoPoint = user.getAVGeoPoint(IMUser.LOCATION);
       String currentLat = String.valueOf(location.getLatitude());
       String currentLong = String.valueOf(location.getLongitude());
       if (geoPoint != null && !currentLat.equals("") && !currentLong.equals("")) {
         double distance = DistanceOfTwoPoints(Double.parseDouble(currentLat), Double.parseDouble(currentLong),
-        user.getAVGeoPoint(LeanchatUser.LOCATION).getLatitude(),
-        user.getAVGeoPoint(LeanchatUser.LOCATION).getLongitude());
+        user.getAVGeoPoint(IMUser.LOCATION).getLatitude(),
+        user.getAVGeoPoint(IMUser.LOCATION).getLongitude());
         distanceView.setText(Utils.getPrettyDistance(distance));
       } else {
         distanceView.setText(App.ctx.getString(R.string.discover_unknown));

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -22,10 +24,9 @@ import com.avoscloud.chat.friends.ContactFragment;
 import com.avoscloud.chat.fragment.ConversationRecentFragment;
 import com.avoscloud.chat.fragment.DiscoverFragment;
 import com.avoscloud.chat.fragment.ProfileFragment;
-import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 import com.avoscloud.chat.util.Utils;
 import com.avoscloud.leanchatlib.controller.ChatManager;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.LogUtils;
 import com.avoscloud.chat.util.UserCacheUtils;
 import com.baidu.location.BDLocation;
@@ -38,7 +39,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by lzw on 14-9-17.
  */
-public class MainActivity extends AVBaseActivity {
+public class MainActivity extends AppCompatActivity {
   public static final int FRAGMENT_N = 4;
   public static final int[] tabsNormalBackIds = new int[]{R.drawable.tabbar_chat,
       R.drawable.tabbar_contacts, R.drawable.tabbar_discover, R.drawable.tabbar_me};
@@ -63,12 +64,13 @@ public class MainActivity extends AVBaseActivity {
   Button[] tabs;
   View recentTips, contactTips;
 
+
   public static void goMainActivityFromActivity(Activity fromActivity) {
     EventBus eventBus = EventBus.getDefault();
     eventBus.post(new LoginFinishEvent());
 
     ChatManager chatManager = ChatManager.getInstance();
-    chatManager.setupManagerWithUserId(fromActivity, LeanchatUser.getCurrentUserId());
+    chatManager.setupManagerWithUserId(fromActivity, IMUser.getCurrentUserId());
     chatManager.openClient(null);
     Intent intent = new Intent(fromActivity, MainActivity.class);
     fromActivity.startActivity(intent);
@@ -89,7 +91,7 @@ public class MainActivity extends AVBaseActivity {
     //discoverBtn.performClick();
     initBaiduLocClient();
 
-    UserCacheUtils.cacheUser(LeanchatUser.getCurrentUser());
+    UserCacheUtils.cacheUser(IMUser.getCurrentUser());
   }
 
   @Override
@@ -145,17 +147,17 @@ public class MainActivity extends AVBaseActivity {
       }
       transaction.show(conversationRecentFragment);
     } else if (id == R.id.btn_contact) {
-      if (contactFragment == null) {
-        contactFragment = new ContactFragment();
-        transaction.add(R.id.fragment_container, contactFragment, FRAGMENT_TAG_CONTACT);
-      }
-      transaction.show(contactFragment);
+//      if (contactFragment == null) {
+//        contactFragment = new ContactFragment();
+//        transaction.add(R.id.fragment_container, contactFragment, FRAGMENT_TAG_CONTACT);
+//      }
+//      transaction.show(contactFragment);
     } else if (id == R.id.btn_discover) {
-      if (discoverFragment == null) {
-        discoverFragment = new DiscoverFragment();
-        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
-      }
-      transaction.show(discoverFragment);
+//      if (discoverFragment == null) {
+//        discoverFragment = new DiscoverFragment();
+//        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
+//      }
+//      transaction.show(discoverFragment);
     } else if (id == R.id.btn_my_space) {
       if (profileFragment == null) {
         profileFragment = new ProfileFragment();
@@ -197,18 +199,18 @@ public class MainActivity extends AVBaseActivity {
     PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
     AVGeoPoint lastLocation = preferenceMap.getLocation();
     if (lastLocation != null) {
-      final LeanchatUser user = LeanchatUser.getCurrentUser();
-      final AVGeoPoint location = user.getAVGeoPoint(LeanchatUser.LOCATION);
+      final IMUser user = IMUser.getCurrentUser();
+      final AVGeoPoint location = user.getAVGeoPoint(IMUser.LOCATION);
       if (location == null || !Utils.doubleEqual(location.getLatitude(), lastLocation.getLatitude())
         || !Utils.doubleEqual(location.getLongitude(), lastLocation.getLongitude())) {
-        user.put(LeanchatUser.LOCATION, lastLocation);
+        user.put(IMUser.LOCATION, lastLocation);
         user.saveInBackground(new SaveCallback() {
           @Override
           public void done(AVException e) {
             if (e != null) {
               LogUtils.logException(e);
             } else {
-              AVGeoPoint avGeoPoint = user.getAVGeoPoint(LeanchatUser.LOCATION);
+              AVGeoPoint avGeoPoint = user.getAVGeoPoint(IMUser.LOCATION);
               if (avGeoPoint == null) {
                 LogUtils.e("avGeopoint is null");
               } else {
@@ -231,7 +233,7 @@ public class MainActivity extends AVBaseActivity {
       int locType = location.getLocType();
       LogUtils.d("onReceiveLocation latitude=" + latitude + " longitude=" + longitude
           + " locType=" + locType + " address=" + location.getAddrStr());
-      String currentUserId = LeanchatUser.getCurrentUserId();
+      String currentUserId = IMUser.getCurrentUserId();
       if (!TextUtils.isEmpty(currentUserId)) {
         PreferenceMap preferenceMap = new PreferenceMap(MainActivity.this, currentUserId);
         AVGeoPoint avGeoPoint = preferenceMap.getLocation();

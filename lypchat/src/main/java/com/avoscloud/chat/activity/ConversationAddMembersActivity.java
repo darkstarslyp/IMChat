@@ -24,7 +24,7 @@ import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 import com.avoscloud.leanchatlib.controller.ChatManager;
 import com.avoscloud.leanchatlib.controller.ConversationHelper;
 import com.avoscloud.leanchatlib.model.ConversationType;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.chat.util.UserCacheUtils;
 import com.avoscloud.leanchatlib.utils.Constants;
 
@@ -64,18 +64,18 @@ public class ConversationAddMembersActivity extends AVBaseActivity {
   }
 
   private void setListData() {
-    FriendsManager.fetchFriends(false, new FindCallback<LeanchatUser>() {
+    FriendsManager.fetchFriends(false, new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         if (filterException(e)) {
           final List<String> userIds = new ArrayList<String>();
-          for (LeanchatUser user : list) {
+          for (IMUser user : list) {
             userIds.add(user.getObjectId());
           }
           userIds.removeAll(conversation.getMembers());
           UserCacheUtils.fetchUsers(userIds, new UserCacheUtils.CacheUserCallback() {
             @Override
-            public void done(List<LeanchatUser> userList, Exception e) {
+            public void done(List<IMUser> userList, Exception e) {
               adapter.setDataList(userList);
               adapter.notifyDataSetChanged();
             }

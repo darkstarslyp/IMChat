@@ -1,6 +1,5 @@
 package com.avoscloud.chat.fragment;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,7 +21,7 @@ import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
 import com.avoscloud.chat.util.UserCacheUtils;
 import com.avoscloud.chat.service.PreferenceMap;
 import com.avoscloud.chat.viewholder.DiscoverItemHolder;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.Constants;
 import com.avoscloud.leanchatlib.utils.LogUtils;
 import com.avoscloud.leanchatlib.view.RefreshableRecyclerView;
@@ -45,7 +44,7 @@ public class DiscoverFragment extends BaseFragment {
 
   protected LinearLayoutManager layoutManager;
 
-  HeaderListAdapter<LeanchatUser> discoverAdapter;
+  HeaderListAdapter<IMUser> discoverAdapter;
   int orderType;
   PreferenceMap preferenceMap;
 
@@ -73,15 +72,17 @@ public class DiscoverFragment extends BaseFragment {
     super.onActivityCreated(savedInstanceState);
     preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
     orderType = preferenceMap.getNearbyOrder();
-    headerLayout.showTitle(R.string.discover_title);
-    headerLayout.showRightImageButton(R.drawable.nearby_order, new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.discover_fragment_sort).setPositiveButton(R.string.discover_fragment_loginTime,
-          updatedAtListener).setNegativeButton(R.string.discover_fragment_distance, distanceListener).show();
-      }
-    });
+    if(toolbar!=null){
+     // toolbar.setTitle(R.string.discover_title);
+    }
+//    toolbar.showRightImageButton(R.drawable.nearby_order, new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle(R.string.discover_fragment_sort).setPositiveButton(R.string.discover_fragment_loginTime,
+//          updatedAtListener).setNegativeButton(R.string.discover_fragment_distance, distanceListener).show();
+//      }
+//    });
     recyclerView.refreshData();
   }
 
@@ -98,20 +99,20 @@ public class DiscoverFragment extends BaseFragment {
       LogUtils.i("geo point is null");
       return;
     }
-    AVQuery<LeanchatUser> q = LeanchatUser.getQuery(LeanchatUser.class);
-    LeanchatUser user = LeanchatUser.getCurrentUser();
+    AVQuery<IMUser> q = IMUser.getQuery(IMUser.class);
+    IMUser user = IMUser.getCurrentUser();
     q.whereNotEqualTo(Constants.OBJECT_ID, user.getObjectId());
     if (orderType == Constants.ORDER_DISTANCE) {
-      q.whereNear(LeanchatUser.LOCATION, geoPoint);
+      q.whereNear(IMUser.LOCATION, geoPoint);
     } else {
       q.orderByDescending(Constants.UPDATED_AT);
     }
     q.skip(skip);
     q.limit(limit);
     q.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
-    q.findInBackground(new FindCallback<LeanchatUser>() {
+    q.findInBackground(new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         UserCacheUtils.cacheUsers(list);
         recyclerView.setLoadComplete(list.toArray(), isRefresh);
       }

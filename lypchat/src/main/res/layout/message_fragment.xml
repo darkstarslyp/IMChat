@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/common_header_layout" />
 
     <include layout="@layout/chat_client_state_view" />
 

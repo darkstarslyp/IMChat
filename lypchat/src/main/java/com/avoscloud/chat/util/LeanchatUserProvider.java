@@ -3,7 +3,7 @@ package com.avoscloud.chat.util;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.FindCallback;
 import com.avoscloud.chat.friends.FriendsManager;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.ThirdPartUserUtils;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class LeanchatUserProvider implements ThirdPartUserUtils.ThirdPartDataPro
     } else {
       UserCacheUtils.fetchUsers(Arrays.asList(userId), new UserCacheUtils.CacheUserCallback() {
         @Override
-        public void done(List<LeanchatUser> userList, Exception e) {
+        public void done(List<IMUser> userList, Exception e) {
           callBack.done(getThirdPartUsers(userList), e);
         }
       });
@@ -38,7 +38,7 @@ public class LeanchatUserProvider implements ThirdPartUserUtils.ThirdPartDataPro
   public void getFriends(List<String> list, final ThirdPartUserUtils.FetchUserCallBack callBack) {
     UserCacheUtils.fetchUsers(list, new UserCacheUtils.CacheUserCallback() {
       @Override
-      public void done(List<LeanchatUser> userList, Exception e) {
+      public void done(List<IMUser> userList, Exception e) {
         callBack.done(getThirdPartUsers(userList), e);
       }
     });
@@ -46,21 +46,21 @@ public class LeanchatUserProvider implements ThirdPartUserUtils.ThirdPartDataPro
 
   @Override
   public void getFriends(int skip, int limit, final ThirdPartUserUtils.FetchUserCallBack callBack) {
-    FriendsManager.fetchFriends(false, new FindCallback<LeanchatUser>() {
+    FriendsManager.fetchFriends(false, new FindCallback<IMUser>() {
       @Override
-      public void done(List<LeanchatUser> list, AVException e) {
+      public void done(List<IMUser> list, AVException e) {
         callBack.done(getThirdPartUsers(list), e);
       }
     });
   }
 
-  private static ThirdPartUserUtils.ThirdPartUser getThirdPartUser(LeanchatUser leanchatUser) {
-    return new ThirdPartUserUtils.ThirdPartUser(leanchatUser.getObjectId(), leanchatUser.getUsername(), leanchatUser.getAvatarUrl());
+  private static ThirdPartUserUtils.ThirdPartUser getThirdPartUser(IMUser IMUser) {
+    return new ThirdPartUserUtils.ThirdPartUser(IMUser.getObjectId(), IMUser.getUsername(), IMUser.getAvatarUrl());
   }
 
-  public static List<ThirdPartUserUtils.ThirdPartUser> getThirdPartUsers(List<LeanchatUser> leanchatUsers) {
+  public static List<ThirdPartUserUtils.ThirdPartUser> getThirdPartUsers(List<IMUser> IMUsers) {
     List<ThirdPartUserUtils.ThirdPartUser> thirdPartUsers = new ArrayList<>();
-    for (LeanchatUser user : leanchatUsers) {
+    for (IMUser user : IMUsers) {
       thirdPartUsers.add(getThirdPartUser(user));
     }
     return thirdPartUsers;

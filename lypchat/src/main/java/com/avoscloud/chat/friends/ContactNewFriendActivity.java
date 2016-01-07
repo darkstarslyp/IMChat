@@ -23,7 +23,7 @@ import com.avoscloud.chat.event.ContactRefreshEvent;
 import com.avoscloud.chat.viewholder.NewFriendItemHolder;
 import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.model.ConversationType;
 import com.avoscloud.leanchatlib.view.RefreshableRecyclerView;
 
@@ -77,7 +77,7 @@ public class ContactNewFriendActivity extends AVBaseActivity {
               filters.add(addRequest);
             }
           }
-          PreferenceMap preferenceMap = new PreferenceMap(ContactNewFriendActivity.this, LeanchatUser.getCurrentUserId());
+          PreferenceMap preferenceMap = new PreferenceMap(ContactNewFriendActivity.this, IMUser.getCurrentUserId());
           preferenceMap.setAddRequestN(filters.size());
           recyclerView.setLoadComplete(list.toArray(), isRefresh);
         }

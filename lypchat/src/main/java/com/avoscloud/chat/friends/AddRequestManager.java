@@ -13,7 +13,7 @@ import com.avoscloud.chat.App;
 import com.avoscloud.chat.service.PushManager;
 import com.avoscloud.chat.util.SimpleNetTask;
 import com.avoscloud.chat.util.Utils;
-import com.avoscloud.chat.model.LeanchatUser;
+import com.avoscloud.chat.model.IMUser;
 import com.avoscloud.leanchatlib.utils.LogUtils;
 
 import java.util.List;
@@ -58,7 +58,7 @@ class AddRequestManager {
   public void countUnreadRequests(final CountCallback countCallback) {
     AVQuery<AddRequest> addRequestAVQuery = AVObject.getQuery(AddRequest.class);
     addRequestAVQuery.setCachePolicy(AVQuery.CachePolicy.NETWORK_ONLY);
-    addRequestAVQuery.whereEqualTo(AddRequest.TO_USER, LeanchatUser.getCurrentUser());
+    addRequestAVQuery.whereEqualTo(AddRequest.TO_USER, IMUser.getCurrentUser());
     addRequestAVQuery.whereEqualTo(AddRequest.IS_READ, false);
     addRequestAVQuery.countInBackground(new CountCallback() {
       @Override
@@ -91,7 +91,7 @@ class AddRequestManager {
   }
 
   public void findAddRequests(int skip, int limit, FindCallback findCallback) {
-    LeanchatUser user = LeanchatUser.getCurrentUser();
+    IMUser user = IMUser.getCurrentUser();
     AVQuery<AddRequest> q = AVObject.getQuery(AddRequest.class);
     q.include(AddRequest.FROM_USER);
     q.skip(skip);
@@ -122,7 +122,7 @@ class AddRequestManager {
   }
 
     public static void addFriend(String friendId, final SaveCallback saveCallback) {
-      LeanchatUser user = LeanchatUser.getCurrentUser();
+      IMUser user = IMUser.getCurrentUser();
     user.followInBackground(friendId, new FollowCallback() {
       @Override
       public void done(AVObject object, AVException e) {
@@ -133,8 +133,8 @@ class AddRequestManager {
     });
   }
 
-  private void createAddRequest(LeanchatUser toUser) throws Exception {
-    LeanchatUser curUser = LeanchatUser.getCurrentUser();
+  private void createAddRequest(IMUser toUser) throws Exception {
+    IMUser curUser = IMUser.getCurrentUser();
     AVQuery<AddRequest> q = AVObject.getQuery(AddRequest.class);
     q.whereEqualTo(AddRequest.FROM_USER, curUser);
     q.whereEqualTo(AddRequest.TO_USER, toUser);
@@ -163,7 +163,7 @@ class AddRequestManager {
     }
   }
 
-  public void createAddRequestInBackground(Context ctx, final LeanchatUser user) {
+  public void createAddRequestInBackground(Context ctx, final IMUser user) {
     new SimpleNetTask(ctx) {
       @Override
       protected void doInBack() throws Exception {
