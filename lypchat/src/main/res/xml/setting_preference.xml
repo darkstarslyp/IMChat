@@ -2,23 +2,20 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
+    <com.avoscloud.chat.view.CheckBoxPreferenceFontSetting
         android:defaultValue="@bool/defaultNotifyWhenNews"
         android:key="notifyWhenNews"
-        android:textColor="@color/black"
         android:title="@string/profile_notifyWhenNews" />
 
-    <CheckBoxPreference
+    <com.avoscloud.chat.view.CheckBoxPreferenceFontSetting
         android:defaultValue="@bool/defaultVoiceNotify"
         android:dependency="notifyWhenNews"
         android:key="voiceNotify"
-        android:textColor="@color/black"
         android:title="@string/setting_preference_voice" />
 
-    <CheckBoxPreference
+    <com.avoscloud.chat.view.CheckBoxPreferenceFontSetting
         android:defaultValue="@bool/defaultVibrateNotify"
         android:dependency="notifyWhenNews"
         android:key="vibrateNotify"
-        android:textColor="@color/black"
         android:title="@string/profile_vibrate" />
 </PreferenceScreen>

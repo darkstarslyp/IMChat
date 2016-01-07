@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.service.PreferenceMap;
+import com.avoscloud.chat.view.CheckBoxPreferenceFontSetting;
 
 /**
  * Created by lzw on 14-9-24.
@@ -16,7 +17,7 @@ public class ProfileNotifySettingFragment extends PreferenceFragment implements 
   public static final String VIBRATE_NOTIFY = "vibrateNotify";
 
   PreferenceMap preferenceMap;
-  CheckBoxPreference notifyWhenNews, voiceNotify, vibrateNotify;
+  CheckBoxPreferenceFontSetting notifyWhenNews, voiceNotify, vibrateNotify;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,14 @@ public class ProfileNotifySettingFragment extends PreferenceFragment implements 
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
-    notifyWhenNews = (CheckBoxPreference) findPreference(NOTIFY_WHEN_NEWS);
-    voiceNotify = (CheckBoxPreference) findPreference(VOICE_NOTIFY);
-    vibrateNotify = (CheckBoxPreference) findPreference(VIBRATE_NOTIFY);
+    notifyWhenNews = (CheckBoxPreferenceFontSetting) findPreference(NOTIFY_WHEN_NEWS);
+    voiceNotify = (CheckBoxPreferenceFontSetting) findPreference(VOICE_NOTIFY);
+    vibrateNotify = (CheckBoxPreferenceFontSetting) findPreference(VIBRATE_NOTIFY);
+
+    notifyWhenNews.setPersistent(true);
+    voiceNotify.setPersistent(true);
+    vibrateNotify.setPersistent(true);
+
 
     notifyWhenNews.setOnPreferenceChangeListener(this);
     voiceNotify.setOnPreferenceChangeListener(this);
