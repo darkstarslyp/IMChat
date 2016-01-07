@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
   ProfileFragment profileFragment;
   Button[] tabs;
   View recentTips, contactTips;
+  Toolbar toolbar;
 
 
   public static void goMainActivityFromActivity(Activity fromActivity) {
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
     fragmentContainer = findViewById(R.id.fragment_container);
     recentTips = findViewById(R.id.iv_recent_tips);
     contactTips = findViewById(R.id.iv_contact_tips);
+    toolbar = (Toolbar)findViewById(R.id.toolbar);
   }
 
   /*
@@ -141,24 +143,28 @@ public class MainActivity extends AppCompatActivity {
     hideFragments(manager, transaction);
     setNormalBackgrounds();
     if (id == R.id.btn_message) {
+      toolbar.setTitle(R.string.conversation_messages);
       if (conversationRecentFragment == null) {
         conversationRecentFragment = new ConversationRecentFragment();
         transaction.add(R.id.fragment_container, conversationRecentFragment, FRAGMENT_TAG_CONVERSATION);
       }
       transaction.show(conversationRecentFragment);
     } else if (id == R.id.btn_contact) {
-//      if (contactFragment == null) {
-//        contactFragment = new ContactFragment();
-//        transaction.add(R.id.fragment_container, contactFragment, FRAGMENT_TAG_CONTACT);
-//      }
-//      transaction.show(contactFragment);
+      toolbar.setTitle(R.string.contact);
+      if (contactFragment == null) {
+        contactFragment = new ContactFragment();
+        transaction.add(R.id.fragment_container, contactFragment, FRAGMENT_TAG_CONTACT);
+      }
+      transaction.show(contactFragment);
     } else if (id == R.id.btn_discover) {
+      toolbar.setTitle(R.string.discover_title);
 //      if (discoverFragment == null) {
 //        discoverFragment = new DiscoverFragment();
 //        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
 //      }
 //      transaction.show(discoverFragment);
     } else if (id == R.id.btn_my_space) {
+      toolbar.setTitle(R.string.title_activity_my_space);
       if (profileFragment == null) {
         profileFragment = new ProfileFragment();
         transaction.add(R.id.fragment_container, profileFragment, FRAGMENT_TAG_PROFILE);

@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class ContactFragment extends BaseFragment {
   private View headerView;
   ImageView msgTipsView;
 
+  Toolbar toolbar;
+
   private ContactsAdapter itemAdapter;
   LinearLayoutManager layoutManager;
 
@@ -94,6 +97,8 @@ public class ContactFragment extends BaseFragment {
     refresh();
     EventBus.getDefault().register(this);
     getMembers(false);
+    toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+    toolbar.setTitle(R.string.contact);
   }
 
   @Override

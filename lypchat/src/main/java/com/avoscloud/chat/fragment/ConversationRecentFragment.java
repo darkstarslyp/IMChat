@@ -75,9 +75,8 @@ public class ConversationRecentFragment extends BaseFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    if(toolbar==null){
-      toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-    }
+
+    toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
     toolbar.setTitle(R.string.conversation_messages);
     updateConversationList();
   }
