@@ -3,6 +3,7 @@ package com.avoscloud.chat.fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,9 +73,10 @@ public class DiscoverFragment extends BaseFragment {
     super.onActivityCreated(savedInstanceState);
     preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
     orderType = preferenceMap.getNearbyOrder();
-    if(toolbar!=null){
-     // toolbar.setTitle(R.string.discover_title);
-    }
+
+
+
+
 //    toolbar.showRightImageButton(R.drawable.nearby_order, new View.OnClickListener() {
 //      @Override
 //      public void onClick(View v) {
@@ -113,8 +115,13 @@ public class DiscoverFragment extends BaseFragment {
     q.findInBackground(new FindCallback<IMUser>() {
       @Override
       public void done(List<IMUser> list, AVException e) {
-        UserCacheUtils.cacheUsers(list);
-        recyclerView.setLoadComplete(list.toArray(), isRefresh);
+        if(e==null){
+          UserCacheUtils.cacheUsers(list);
+          recyclerView.setLoadComplete(list.toArray(), isRefresh);
+        }else{
+          e.printStackTrace();
+        }
+
       }
     });
   }

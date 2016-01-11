@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,8 @@ public class ConversationDetailActivity extends AVBaseActivity {
 
   @Bind(R.id.activity_conv_detail_rv_list)
   RecyclerView recyclerView;
+  @Bind(R.id.toolbar)
+  Toolbar toolbar;
 
   GridLayoutManager layoutManager;
   HeaderListAdapter<IMUser> listAdapter;
@@ -95,9 +98,8 @@ public class ConversationDetailActivity extends AVBaseActivity {
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(listAdapter);
-
     initData();
-    setTitle(R.string.conversation_detail_title);
+    toolbar.setTitle(R.string.conversation_detail_title);
     setViewByConvType(conversationType);
   }
 

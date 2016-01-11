@@ -3,6 +3,7 @@ package com.avoscloud.leanchatlib.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.avoscloud.leanchatlib.R;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -26,12 +27,14 @@ public class AVChatActivity extends AVBaseActivity {
 
   protected ChatFragment chatFragment;
   protected AVIMConversation conversation;
+  protected Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_chat);
     chatFragment = (ChatFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_chat);
+    toolbar = (Toolbar)findViewById(R.id.toolbar);
     initByIntent(getIntent());
   }
 
@@ -71,7 +74,7 @@ public class AVChatActivity extends AVBaseActivity {
       this.conversation = conversation;
       chatFragment.setConversation(conversation);
       chatFragment.showUserName(ConversationHelper.typeOfConversation(conversation) != ConversationType.Single);
-      initActionBar(ConversationHelper.titleOfConversation(conversation));
+      toolbar.setTitle(getResources().getString(R.string.chat_title1) + ConversationHelper.titleOfConversation(conversation) + getResources().getString(R.string.chat_title2));
     }
   }
 

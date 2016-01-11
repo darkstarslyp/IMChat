@@ -1,10 +1,15 @@
 package com.avoscloud.chat.adapter;
 
 import android.text.TextUtils;
+import android.view.ViewGroup;
 
 import com.avoscloud.chat.viewholder.ContactItemHolder;
 import com.avoscloud.leanchatlib.adapter.HeaderListAdapter;
 import com.avoscloud.chat.model.IMUser;
+import com.avoscloud.leanchatlib.viewholder.CommonFooterItemHolder;
+import com.avoscloud.leanchatlib.viewholder.CommonHeaderItemHolder;
+import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
+import com.github.stuxuhai.jpinyin.ChineseHelper;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
@@ -27,6 +32,9 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
    */
   private Map<Character, Integer> indexMap = new HashMap<Character, Integer>();
 
+
+
+
   /**
    * 简体中文的 Collator
    */
@@ -47,7 +55,12 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
       for (IMUser user : list) {
         ContactItem item = new ContactItem();
         item.user = user;
-        item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE);
+        try{
+           item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE);
+        }catch (Exception e){
+          e.printStackTrace();
+        }
+
         contactList.add(item);
       }
     }
@@ -55,6 +68,7 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
     indexMap = updateIndex(contactList);
     updateInitialsVisible(contactList);
     super.setDataList(contactList);
+
   }
 
   /**
@@ -122,5 +136,23 @@ public class ContactsAdapter extends HeaderListAdapter<ContactsAdapter.ContactIt
     public IMUser user;
     public String sortContent;
     public boolean initialVisible;
+  }
+
+
+  @Override
+  public void onBindViewHolder(CommonViewHolder holder, int position) {
+    if (position >= 0 && position < dataList.size()) {
+
+      holder.bindData(dataList.get(position));
+
+    }
+  }
+
+  @Override
+  public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    super.onCreateViewHolder(parent,viewType);
+    ContactItemHolder itemHolder = new ContactItemHolder(parent.getContext(),parent);
+
+    return itemHolder;
   }
 }

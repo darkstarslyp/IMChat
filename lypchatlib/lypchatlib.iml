@@ -90,8 +90,8 @@
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.0" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-2.6.0-leancloud" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-sdk-v3.12.2" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-2.6.0-leancloud" level="project" />
     <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="prettytime-3.2.5.Final" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
@@ -107,5 +107,6 @@
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.3" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.2.4" level="project" />
+    <orderEntry type="module" module-name="lypchat" />
   </component>
 </module>

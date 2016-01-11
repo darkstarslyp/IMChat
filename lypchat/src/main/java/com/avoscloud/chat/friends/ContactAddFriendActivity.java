@@ -2,6 +2,7 @@ package com.avoscloud.chat.friends;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -35,6 +36,9 @@ public class ContactAddFriendActivity extends AVBaseActivity {
   @Bind(R.id.searchNameEdit)
   EditText searchNameEdit;
 
+  @Bind(R.id.toolbar)
+  Toolbar toolbar;
+
   private HeaderListAdapter<IMUser> adapter;
   private String searchName = "";
 
@@ -47,7 +51,7 @@ public class ContactAddFriendActivity extends AVBaseActivity {
   }
 
   private void init() {
-    setTitle(App.ctx.getString(R.string.contact_findFriends));
+    toolbar.setTitle(App.ctx.getString(R.string.contact_findFriends));
     adapter = new HeaderListAdapter<>(SearchUserItemHolder.class);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(this));

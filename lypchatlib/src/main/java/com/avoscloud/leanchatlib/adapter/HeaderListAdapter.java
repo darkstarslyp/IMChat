@@ -3,6 +3,7 @@ package com.avoscloud.leanchatlib.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.avoscloud.leanchatlib.viewholder.CommonFooterItemHolder;
 import com.avoscloud.leanchatlib.viewholder.CommonHeaderItemHolder;
 import com.avoscloud.leanchatlib.viewholder.CommonViewHolder;
@@ -20,8 +21,12 @@ public class HeaderListAdapter<T> extends CommonListAdapter<T> {
   private View headerView = null;
   private View footerView = null;
 
+  private Class<?>  vhClass ;
+
+
   public HeaderListAdapter(Class<?> vhClass) {
     super(vhClass);
+    this.vhClass = vhClass;
   }
 
   public void setHeaderView(View view) {
@@ -87,6 +92,7 @@ public class HeaderListAdapter<T> extends CommonListAdapter<T> {
       return itemHolder;
     }
 
-    return super.onCreateViewHolder(parent, viewType);
+
+   return super.onCreateViewHolder(parent, viewType);
   }
 }

@@ -133,6 +133,9 @@ class AddRequestManager {
     });
   }
 
+  /*
+   *添加好友
+   */
   private void createAddRequest(IMUser toUser) throws Exception {
     IMUser curUser = IMUser.getCurrentUser();
     AVQuery<AddRequest> q = AVObject.getQuery(AddRequest.class);
@@ -154,15 +157,21 @@ class AddRequestManager {
       // 抛出异常，然后提示用户
       throw new IllegalStateException(App.ctx.getString(R.string.contact_alreadyCreateAddRequest));
     } else {
-      AddRequest add = new AddRequest();
-      add.setFromUser(curUser);
-      add.setToUser(toUser);
-      add.setStatus(AddRequest.STATUS_WAIT);
-      add.setIsRead(false);
-      add.save();
+      try{
+        AddRequest add = new AddRequest();
+        add.setFromUser(curUser);
+        add.setToUser(toUser);
+        add.setStatus(AddRequest.STATUS_WAIT);
+        add.setIsRead(false);
+        add.save();
+      }catch (AVException e){
+          e.printStackTrace();
+      }
     }
   }
-
+  /*
+   *创建添加好友执行环境，一个新的线程
+   */
   public void createAddRequestInBackground(Context ctx, final IMUser user) {
     new SimpleNetTask(ctx) {
       @Override

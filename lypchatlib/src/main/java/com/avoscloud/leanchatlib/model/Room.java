@@ -3,10 +3,8 @@ package com.avoscloud.leanchatlib.model;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avoscloud.leanchatlib.utils.AVIMConversationCacheUtils;
 
-import java.util.Date;
 import java.util.List;
 
 /**

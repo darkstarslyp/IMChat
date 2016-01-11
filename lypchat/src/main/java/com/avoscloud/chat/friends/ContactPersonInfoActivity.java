@@ -2,9 +2,12 @@ package com.avoscloud.chat.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.*;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
+
 import com.avoscloud.chat.R;
 import com.avoscloud.chat.activity.ChatRoomActivity;
 import com.avoscloud.chat.model.IMUser;
@@ -26,6 +29,7 @@ public class ContactPersonInfoActivity extends AVBaseActivity implements OnClick
   LinearLayout allLayout;
   Button chatBtn, addFriendBtn;
   RelativeLayout avatarLayout, genderLayout;
+  Toolbar  toolbar;
 
   String userId = "";
   IMUser user;
@@ -57,19 +61,22 @@ public class ContactPersonInfoActivity extends AVBaseActivity implements OnClick
     genderView = (TextView) findViewById(R.id.sexView);
     chatBtn = (Button) findViewById(R.id.chatBtn);
     addFriendBtn = (Button) findViewById(R.id.addFriendBtn);
+
+    toolbar = (Toolbar)findViewById(R.id.toolbar);
+
   }
 
   private void initView() {
     IMUser curUser = IMUser.getCurrentUser();
     if (curUser.equals(user)) {
-      setTitle(R.string.contact_personalInfo);
+      toolbar.setTitle(R.string.contact_personalInfo);
       avatarLayout.setOnClickListener(this);
       genderLayout.setOnClickListener(this);
       avatarArrowView.setVisibility(View.VISIBLE);
       chatBtn.setVisibility(View.GONE);
       addFriendBtn.setVisibility(View.GONE);
     } else {
-      setTitle(R.string.contact_detailInfo);
+      toolbar.setTitle(R.string.contact_detailInfo);
       avatarArrowView.setVisibility(View.INVISIBLE);
       List<String> cacheFriends = FriendsManager.getFriendIds();
       boolean isFriend = cacheFriends.contains(user.getObjectId());

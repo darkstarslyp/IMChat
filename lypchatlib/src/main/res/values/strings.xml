@@ -53,4 +53,7 @@
 
     <string name="login">进入聊天室</string>
     <string name="login_null_name_tip">请输入用户名</string>
+
+    <string name="chat_title1">与 </string>
+    <string name="chat_title2"> 会话</string>
 </resources>

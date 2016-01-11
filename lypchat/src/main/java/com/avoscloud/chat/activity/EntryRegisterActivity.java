@@ -1,6 +1,7 @@
 package com.avoscloud.chat.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,7 @@ import com.avoscloud.leanchatlib.activity.AVBaseActivity;
 public class EntryRegisterActivity extends AVBaseActivity {
   View registerButton;
   EditText usernameEdit, passwordEdit, emailEdit;
+  Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class EntryRegisterActivity extends AVBaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.entry_register_activity);
     findView();
-    setTitle(App.ctx.getString(R.string.register));
+    toolbar.setTitle(App.ctx.getString(R.string.register));
     registerButton.setOnClickListener(new OnClickListener() {
 
       @Override
@@ -40,6 +42,7 @@ public class EntryRegisterActivity extends AVBaseActivity {
     passwordEdit = (EditText) findViewById(R.id.passwordEdit);
     emailEdit = (EditText) findViewById(R.id.ensurePasswordEdit);
     registerButton = findViewById(R.id.btn_register);
+    toolbar = (Toolbar)findViewById(R.id.toolbar);
   }
 
   private void register() {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +31,9 @@ public class ConversationGroupListActivity extends AVBaseActivity {
   @Bind(R.id.activity_group_list_srl_view)
   protected RecyclerView recyclerView;
 
+  @Bind(R.id.toolbar)
+  Toolbar toolbar;
+
   LinearLayoutManager layoutManager;
   private CommonListAdapter<AVIMConversation> itemAdapter;
 
@@ -42,7 +46,7 @@ public class ConversationGroupListActivity extends AVBaseActivity {
     initView();
 
     conversationManager = ConversationManager.getInstance();
-    setTitle(App.ctx.getString(R.string.conversation_group));
+    toolbar.setTitle(App.ctx.getString(R.string.conversation_group));
 
     refreshGroupList();
   }

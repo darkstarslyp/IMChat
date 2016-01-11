@@ -3,6 +3,7 @@ package com.avoscloud.chat.service;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVPush;
 import com.avos.avoscloud.AVQuery;
@@ -52,15 +53,21 @@ public class PushManager {
   }
 
   public void pushMessage(String userId, String message, String action) {
-    AVQuery query = AVInstallation.getQuery();
-    query.whereContains(INSTALLATION_CHANNELS, userId);
-    AVPush push = new AVPush();
-    push.setQuery(query);
+    try{
+      AVQuery query = AVInstallation.getQuery();
+      query.whereContains(INSTALLATION_CHANNELS, userId);
+      AVPush push = new AVPush();
+      push.setQuery(query);
 
-    Map<String, Object> dataMap = new HashMap<String, Object>();
-    dataMap.put(AVOS_ALERT, message);
-    dataMap.put(AVOS_PUSH_ACTION, action);
-    push.setData(dataMap);
-    push.sendInBackground();
+      Map<String, Object> dataMap = new HashMap<String, Object>();
+      dataMap.put(AVOS_ALERT, message);
+      dataMap.put(AVOS_PUSH_ACTION, action);
+      push.setData(dataMap);
+      push.sendInBackground();
+
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+
   }
 }

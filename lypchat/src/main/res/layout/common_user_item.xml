@@ -14,6 +14,7 @@
         android:textSize="18sp" />
 
     <RelativeLayout
+        android:id="@+id/btn_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_list_item_height"
         android:layout_below="@id/alpha"

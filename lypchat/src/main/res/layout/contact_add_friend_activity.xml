@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/contact_base_bg"
     android:orientation="vertical">
-
+    <include layout="@layout/tool_bar"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -158,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
       transaction.show(contactFragment);
     } else if (id == R.id.btn_discover) {
       toolbar.setTitle(R.string.discover_title);
-//      if (discoverFragment == null) {
-//        discoverFragment = new DiscoverFragment();
-//        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
-//      }
-//      transaction.show(discoverFragment);
+      if (discoverFragment == null) {
+        discoverFragment = new DiscoverFragment();
+        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
+      }
+      transaction.show(discoverFragment);
     } else if (id == R.id.btn_my_space) {
       toolbar.setTitle(R.string.title_activity_my_space);
       if (profileFragment == null) {

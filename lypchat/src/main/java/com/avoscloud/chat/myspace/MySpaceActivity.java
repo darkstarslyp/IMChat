@@ -31,6 +31,7 @@ import java.io.File;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class MySpaceActivity extends AppCompatActivity {
     //声明控件变量
@@ -237,6 +238,8 @@ public class MySpaceActivity extends AppCompatActivity {
                 final String path = saveCropAvatar(data);
                 IMUser user = IMUser.getCurrentUser();
                 user.saveAvatar(path, null);
+                EventBus.getDefault().post(user);
+                onResume();
             }
         }
     }

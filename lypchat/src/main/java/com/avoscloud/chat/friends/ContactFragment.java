@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.CountCallback;
@@ -55,7 +56,10 @@ public class ContactFragment extends BaseFragment {
   @Bind(R.id.activity_square_members_rv_list)
   protected RecyclerView recyclerView;
 
-  private View headerView;
+  @Bind(R.id.header_layout)
+  protected LinearLayout headerView;
+
+//  private View headerView;
   ImageView msgTipsView;
 
   Toolbar toolbar;
@@ -70,14 +74,14 @@ public class ContactFragment extends BaseFragment {
                            Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     View view = inflater.inflate(R.layout.contact_fragment, container, false);
-    headerView = inflater.inflate(R.layout.contact_fragment_header_layout, container, false);
+//    headerView = inflater.inflate(R.layout.contact_fragment_header_layout, container, false);
     ButterKnife.bind(this, view);
 
     layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setLayoutManager(layoutManager);
 
     itemAdapter = new ContactsAdapter();
-    itemAdapter.setHeaderView(headerView);
+//    itemAdapter.setHeaderView(headerView);
     recyclerView.setAdapter(itemAdapter);
 
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -157,7 +161,7 @@ public class ContactFragment extends BaseFragment {
   }
 
   private void updateNewRequestBadge() {
-    msgTipsView.setVisibility(
+      msgTipsView.setVisibility(
       AddRequestManager.getInstance().hasUnreadRequests() ? View.VISIBLE : View.GONE);
   }
 

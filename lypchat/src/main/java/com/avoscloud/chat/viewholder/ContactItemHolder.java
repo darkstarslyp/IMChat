@@ -36,6 +36,7 @@ public class ContactItemHolder extends CommonViewHolder<ContactsAdapter.ContactI
     nameView = (TextView)itemView.findViewById(R.id.tv_friend_name);
     avatarView = (ImageView)itemView.findViewById(R.id.img_friend_avatar);
 
+
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -54,6 +55,10 @@ public class ContactItemHolder extends CommonViewHolder<ContactsAdapter.ContactI
 
   @Override
   public void bindData(ContactsAdapter.ContactItem memberItem) {
+    if(memberItem==null){
+      itemView.setVisibility(View.GONE);
+      return ;
+    }
     contactItem = memberItem;
     alpha.setVisibility(memberItem.initialVisible ? View.VISIBLE : View.GONE);
     alpha.setText(String.valueOf(Character.toUpperCase(memberItem.sortContent.charAt(0))));

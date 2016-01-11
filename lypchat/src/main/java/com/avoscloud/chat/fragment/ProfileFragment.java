@@ -16,6 +16,8 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -53,6 +55,7 @@ public class ProfileFragment extends BaseFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.profile_fragment, container, false);
     ButterKnife.bind(this, view);
+    EventBus.getDefault().register(this);
     return view;
   }
 
@@ -170,5 +173,9 @@ public class ProfileFragment extends BaseFragment {
       }
     }
     return path;
+  }
+
+  public void onEvent(IMUser user){
+     ImageLoader.getInstance().displayImage(user.getAvatarUrl(),avatarView);
   }
 }

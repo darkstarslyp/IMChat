@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 
 import butterknife.Bind;
 import com.avos.avoscloud.AVException;
@@ -39,6 +40,8 @@ public class ContactNewFriendActivity extends AVBaseActivity {
 
   @Bind(R.id.newfriendList)
   RefreshableRecyclerView recyclerView;
+  @Bind(R.id.toolbar)
+  Toolbar toooBar ;
 
   LinearLayoutManager layoutManager;
 
@@ -53,7 +56,7 @@ public class ContactNewFriendActivity extends AVBaseActivity {
   }
 
   private void initView() {
-    setTitle(R.string.contact_new_friends);
+    toooBar.setTitle(R.string.contact_new_friends);
     layoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(layoutManager);
     adapter = new HeaderListAdapter<>(NewFriendItemHolder.class);
@@ -70,16 +73,21 @@ public class ContactNewFriendActivity extends AVBaseActivity {
       AddRequestManager.getInstance().findAddRequests(isRefresh ? 0 : adapter.getDataList().size(), 20, new FindCallback<AddRequest>() {
         @Override
         public void done(List<AddRequest> list, AVException e) {
-          AddRequestManager.getInstance().markAddRequestsRead(list);
-          final List<AddRequest> filters = new ArrayList<AddRequest>();
-          for (AddRequest addRequest : list) {
-            if (addRequest.getFromUser() != null) {
-              filters.add(addRequest);
+          if(e==null){
+            AddRequestManager.getInstance().markAddRequestsRead(list);
+            final List<AddRequest> filters = new ArrayList<AddRequest>();
+            for (AddRequest addRequest : list) {
+              if (addRequest.getFromUser() != null) {
+                filters.add(addRequest);
+              }
             }
+            PreferenceMap preferenceMap = new PreferenceMap(ContactNewFriendActivity.this, IMUser.getCurrentUserId());
+            preferenceMap.setAddRequestN(filters.size());
+            recyclerView.setLoadComplete(list.toArray(), isRefresh);
+          }else{
+            e.printStackTrace();
           }
-          PreferenceMap preferenceMap = new PreferenceMap(ContactNewFriendActivity.this, IMUser.getCurrentUserId());
-          preferenceMap.setAddRequestN(filters.size());
-          recyclerView.setLoadComplete(list.toArray(), isRefresh);
+
         }
       });
     }
@@ -92,6 +100,7 @@ public class ContactNewFriendActivity extends AVBaseActivity {
     }
   }
 
+  //同意添加好友
   private void agreeAddRequest(final AddRequest addRequest) {
     final ProgressDialog dialog = showSpinnerDialog();
     AddRequestManager.getInstance().agreeAddRequest(addRequest, new SaveCallback() {

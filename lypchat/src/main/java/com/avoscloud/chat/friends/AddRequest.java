@@ -21,8 +21,6 @@ public class AddRequest extends AVObject {
    */
   public static final String IS_READ = "isRead";
 
-  public AddRequest() {
-  }
 
   public IMUser getFromUser() {
     return getAVUser(FROM_USER, IMUser.class);

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/theme_bg_color"
     android:orientation="vertical">
-
+    <include layout="@layout/tool_bar"/>
     <LinearLayout style="@style/Register_Input">
 
         <TextView
@@ -18,7 +18,9 @@
         <EditText
             android:id="@+id/usernameEdit"
             style="@style/Register_Edit"
-            android:hint="@string/login_username_hint" />
+            android:hint="@string/login_username_hint"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
     <LinearLayout style="@style/Register_Input">
@@ -29,13 +31,17 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+
             android:text="@string/entry_register_activity_password" />
 
         <EditText
             android:id="@+id/passwordEdit"
             style="@style/Register_Edit"
             android:hint="@string/login_password_hint"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+
+            />
     </LinearLayout>
 
     <LinearLayout style="@style/Register_Input">
@@ -52,7 +58,9 @@
             android:id="@+id/ensurePasswordEdit"
             style="@style/Register_Edit"
             android:hint="@string/ensurePasswordHint"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
     <Button
