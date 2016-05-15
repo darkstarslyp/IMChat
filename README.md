@@ -8,4 +8,5 @@ this project based on LeanCloud Chat For Android
 3、添加好友、搜索好友
 4、好友聊天等模块
 
+详情见 contact-person 分支
 
